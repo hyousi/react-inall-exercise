@@ -1,5 +1,6 @@
 import React from 'react';
-import './home.less';
+import '../home.less';
+
 
 const Home = () => {
   return (<div className="home">
