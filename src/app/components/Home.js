@@ -1,5 +1,5 @@
 import React from 'react';
-import '../home.less';
+import '../styles/home.less';
 
 
 const Home = () => {
