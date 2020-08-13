@@ -15,7 +15,7 @@ export default function Navbar() {
           <NavLink to='/calc'>在线计算器</NavLink>
         </li>
         <li>
-          <NavLink to='/counter'>在线倒计时器</NavLink>
+          <NavLink to='/timer'>在线倒计时器</NavLink>
         </li>
       </ul>
     </nav>
