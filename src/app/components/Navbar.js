@@ -4,7 +4,7 @@ import '../styles/navbar.less';
 
 export default function Navbar() {
   return (
-    <nav className='container'>
+    <nav>
       <ul>
         <li>
           <NavLink exact to='/'>

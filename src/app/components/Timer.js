@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Row from './Row';
 import Col from './Col';
 import { Link } from 'react-router-dom';
+import '../styles/timer.less';
 
 export default class Timer extends Component {
   constructor(props) {
