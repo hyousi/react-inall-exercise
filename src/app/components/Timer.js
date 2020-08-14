@@ -29,16 +29,18 @@ export default class Timer extends Component {
     const { seconds, isStarted } = this.state;
     console.log(seconds, isStarted);
     if (seconds && isStarted) {
-      this.pid = this.pid ? this.pid : setInterval(
-        () => this.setState({ seconds: this.state.seconds - 1 }),
-        1000
-      );
+      this.pid = this.pid
+        ? this.pid
+        : setInterval(
+            () => this.setState({ seconds: this.state.seconds - 1 }),
+            1000
+          );
     }
     if (!isStarted || !seconds) {
       clearInterval(this.pid);
       this.pid = null;
       this.setState({ isStarted: false });
-    } 
+    }
   }
 
   render() {
@@ -46,23 +48,19 @@ export default class Timer extends Component {
     return (
       <>
         <h1>在线倒计时器</h1>
-        <Row>
-          <Col>
-            <Row>
-              <label>
-                设置时间
-                <input name='seconds' onChange={this.handleChange} />
-              </label>
-            </Row>
-            <Row>
-              <button onClick={this.handleClick}>
-                {isStarted ? 'End' : 'Start'}
-              </button>
-            </Row>
-          </Col>
-          {/* <Col>{isStarted ? seconds : '请设置倒计时'}</Col> */}
-          <Col>{seconds}</Col>
-        </Row>
+        <div id='timer'>
+          <div id='timer-left'>
+            <div>
+              <span>设置时间</span>
+              <input name='seconds' onChange={this.handleChange} />
+            </div>
+
+            <button onClick={this.handleClick}>
+              {isStarted ? 'End' : 'Start'}
+            </button>
+          </div>
+          <div id='timer-right'>{`${seconds} Seconds`}</div>
+        </div>
         <Link to='/'>回到主页</Link>
       </>
     );
