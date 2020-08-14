@@ -9,22 +9,16 @@ export default function Home() {
   return (
     <>
       <div className='hero-image'>
-        <div>在线实用工具</div>
-        <img src={heroImage} style={{ visibility: 'hidden' }} />
+        <h1>在线实用工具</h1>
       </div>
-
-      <div className='row'>
-        <div>
-          <img src={calcImage} alt='calculator link' />
-          <div>
-            <Link to='/calc'>计算器</Link>
-          </div>
+      <div className='body-nav'>
+        <div className='col'>
+          <img src={calcImage} />
+          <Link to='/calc'>计算器</Link>
         </div>
-        <div>
-          <img src={calcImage} alt='calculator link' />
-          <div>
-            <Link to='/timer'>计时器</Link>
-          </div>
+        <div className='col'>
+          <img src={timerImage} />
+          <Link to='/timer'>计时器</Link>
         </div>
       </div>
     </>
