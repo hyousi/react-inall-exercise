@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Row from './Row';
+import '../styles/calc.less';
 
 export default class Calculator extends Component {
   constructor(props) {
@@ -27,6 +28,29 @@ export default class Calculator extends Component {
     this.handleClick = this.handleClick.bind(this);
   }
 
+  buttonStyle(buttonText) {
+    switch (buttonText) {
+      case '+':
+        return 'operator';
+        break;
+      case '-':
+        return 'operator';
+        break;
+      case '✕':
+        return 'operator';
+        break;
+      case 'Clear':
+        return 'clear';
+        break;
+      case '=':
+        return 'equal';
+        break;
+      default:
+        return 'operand';
+        break;
+    }
+  }
+
   handleClick(event, buttonText) {
     switch (buttonText) {
       case 'Clear':
@@ -44,16 +68,19 @@ export default class Calculator extends Component {
     return (
       <>
         <h1>在线计算器</h1>
-        <Row className='monitor'>{this.state.monitor}</Row>
-        <Row>
-          {this.state.buttonsText.map((buttonText) => (
-            <button
-              key={`button-${buttonText}`}
-              onClick={(e) => this.handleClick(e, buttonText)}>
-              {buttonText}
-            </button>
-          ))}
-        </Row>
+        <div className='calc'>
+          <div className='calc-monitor'>{this.state.monitor}</div>
+          <div className='calc-buttons'>
+            {this.state.buttonsText.map((buttonText) => (
+              <button
+                key={`button-${buttonText}`}
+                className={this.buttonStyle(buttonText)}
+                onClick={(e) => this.handleClick(e, buttonText)}>
+                {buttonText}
+              </button>
+            ))}
+          </div>
+        </div>
       </>
     );
   }
