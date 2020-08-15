@@ -56,6 +56,11 @@ export default class Calculator extends Component {
       case 'Clear':
         this.setState({ monitor: '' });
         break;
+      case '=':
+        const { monitor } = this.state;
+        const result = eval(monitor);
+        this.setState({ monitor: result });
+        break;
       case '+' || '-' || '✕':
         this.setState({ monitor: this.state.monitor + buttonText });
         break;
