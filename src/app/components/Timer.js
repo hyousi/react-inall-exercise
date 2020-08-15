@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import Row from './Row';
-import Col from './Col';
 import { Link } from 'react-router-dom';
 import '../styles/timer.less';
 
@@ -10,6 +8,7 @@ export default class Timer extends Component {
     this.state = {
       seconds: 0,
       isStarted: false,
+      inputVal: ''
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
@@ -17,7 +16,7 @@ export default class Timer extends Component {
 
   handleChange(event) {
     const { name, value } = event.target;
-    this.setState({ [name]: Number(value) });
+    this.setState({ seconds: Number(value),  inputVal: value});
   }
 
   handleClick() {
@@ -25,26 +24,30 @@ export default class Timer extends Component {
   }
 
   componentDidUpdate() {
-    // FIXME: 0 can't start timer.
     const { seconds, isStarted } = this.state;
-    console.log(seconds, isStarted);
-    if (seconds && isStarted) {
-      this.pid = this.pid
-        ? this.pid
-        : setInterval(
-            () => this.setState({ seconds: this.state.seconds - 1 }),
-            1000
-          );
+    if (isStarted && !this.timerID) {
+      this.timerID = setInterval(() => {
+            const { seconds } = this.state;
+            console.log(`interVal: ${seconds}`);
+            this.setState({ seconds: seconds - 1 });
+          }, 1000);
     }
-    if (!isStarted || !seconds) {
-      clearInterval(this.pid);
-      this.pid = null;
-      this.setState({ isStarted: false });
+    if (seconds === 0 && this.timerID) {
+      clearInterval(this.timerID);
+      this.timerID = null;
+      this.setState({ isStarted: false, inputVal: '' });
+    }
+  }
+
+  componentWillUnmount() {
+    if (this.timerID) {
+      clearInterval(this.timerID);
+      this.timerID = null;
     }
   }
 
   render() {
-    const { seconds, isStarted } = this.state;
+    const { seconds, isStarted, inputVal } = this.state;
     return (
       <>
         <h1>在线倒计时器</h1>
@@ -52,10 +55,15 @@ export default class Timer extends Component {
           <div id='timer-left'>
             <div>
               <span>设置时间</span>
-              <input name='seconds' onChange={this.handleChange} />
+              <input
+                name='seconds'
+                onChange={this.handleChange}
+                disabled={isStarted}
+                value={inputVal}
+              />
             </div>
 
-            <button onClick={this.handleClick}>
+            <button onClick={this.handleClick} disabled={isStarted}>
               {isStarted ? 'End' : 'Start'}
             </button>
           </div>
